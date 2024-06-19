@@ -47,6 +47,11 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="CGl-4m-hAm" secondAttribute="height" multiplier="2:3" id="kek-Ll-xBf"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnV-25-eOA" userLabel="Question Label">
                                         <rect key="frame" x="14" y="424" width="346" height="300"/>
@@ -101,8 +106,6 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="7ed-hN-qMi" secondAttribute="trailing" constant="20" id="j9l-K2-vic"/>
-                                    <constraint firstAttribute="bottom" secondItem="7ed-hN-qMi" secondAttribute="bottom" constant="20" id="tM5-6Z-U82"/>
                                     <constraint firstItem="7ed-hN-qMi" firstAttribute="leading" secondItem="ymV-KT-OO1" secondAttribute="leading" constant="10" id="uiU-Fr-hOc"/>
                                 </constraints>
                             </stackView>
@@ -119,8 +122,10 @@
                     <connections>
                         <outlet property="counterLabel" destination="VJ9-if-btt" id="86J-sw-5fk"/>
                         <outlet property="imageView" destination="CGl-4m-hAm" id="0bL-xe-6bt"/>
+                        <outlet property="noButton" destination="F9Z-KQ-IFk" id="ZuI-4h-oCh"/>
                         <outlet property="questionLabel" destination="pnV-25-eOA" id="c6W-Yz-w0t"/>
                         <outlet property="textLabel" destination="pnV-25-eOA" id="4Sj-EW-G2T"/>
+                        <outlet property="yesButton" destination="IQd-oT-5jm" id="0Le-EQ-qO5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
