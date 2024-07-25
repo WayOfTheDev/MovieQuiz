@@ -5,8 +5,6 @@
 //  Created by D. K. on 27.06.24.
 //
 
-import Foundation
-
 
 struct QuizResultsViewModel {
     let title: String
