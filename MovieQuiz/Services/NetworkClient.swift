@@ -13,6 +13,7 @@ struct NetworkClient {
 
     private enum NetworkError: Error {
         case codeError
+        case noData
     }
     
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
@@ -32,8 +33,13 @@ struct NetworkClient {
                 return
             }
             
+            // Проверяем наличие данных
+            guard let data = data else {
+                handler(.failure(NetworkError.noData))
+                return
+            }
+            
             // Возвращаем данные
-            guard let data = data else { return }
             handler(.success(data))
         }
         
