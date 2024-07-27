@@ -11,12 +11,12 @@ import Foundation
 final class QuestionFactory: QuestionFactoryProtocol {
     
     private let moviesLoader: MoviesLoading
-    private var delegate: QuestionFactoryDelegate?
+    private weak var delegate: QuestionFactoryDelegate?
 
     init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate?) {
-            self.moviesLoader = moviesLoader
-            self.delegate = delegate
-        }
+        self.moviesLoader = moviesLoader
+        self.delegate = delegate
+    }
     
     func loadData() {
         moviesLoader.loadMovies { [weak self] (result: Result<MostPopularMovies, Error>) in
@@ -85,20 +85,13 @@ final class QuestionFactory: QuestionFactoryProtocol {
             guard let movie = self.movies[safe: index] else { return }
             
             var imageData = Data()
-           
-           do {
+            
+            do {
                 imageData = try Data(contentsOf: movie.resizedImageURL)
             } catch {
                 print("Failed to load image")
             }
             
-            //let rating = Float(movie.rating) ?? 0
-            
-//            let randomRating = Float.random(in: 5...9)
-//            let roundedRating = round(randomRating * 10) / 10
-//            
-//            let text = "Рейтинг этого фильма больше чем \(roundedRating)?"
-//            let correctAnswer = Float(movie.rating) ?? 0 > roundedRating
             let actualRating = Int(round(Float(movie.rating) ?? 0))
             var questionRating: Int
             var correctAnswer: Bool

@@ -18,23 +18,19 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        questionFactory = QuestionFactory(delegate: self)
-//        questionFactory?.requestNextQuestion()
-        
         imageView.layer.cornerRadius = 20
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-//        statisticService = StatisticServiceImplementation()
         alertPresenter = AlertPresenter(viewController: self)
         
         
         let ysMediumFont = UIFont(name: "YS Display Medium", size: 20.0)
-                textLabel.font = ysMediumFont
-                counterLabel.font = ysMediumFont
-                yesButton.titleLabel?.font = ysMediumFont
-                noButton.titleLabel?.font = ysMediumFont
+        textLabel.font = ysMediumFont
+        counterLabel.font = ysMediumFont
+        yesButton.titleLabel?.font = ysMediumFont
+        noButton.titleLabel?.font = ysMediumFont
 
         let ysBoldFont = UIFont(name: "YS Display Bold", size: 23.0)
-                questionLabel.font = ysBoldFont
+        questionLabel.font = ysBoldFont
         
         showLoadingIndicator()
         questionFactory?.loadData()
@@ -67,13 +63,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private let questionsAmount: Int = 10
-    //private var questionFactory: QuestionFactory = QuestionFactory()
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel(
+        QuizStepViewModel(
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
@@ -154,8 +149,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         let model = AlertModel(title: "Ошибка",
                                message: message,
-                               buttonText: "Попробовать еще раз") { [weak self] in
-            guard let self = self else { return }
+                               buttonText: "Попробовать еще раз") { [weak self] in guard let self = self else { return }
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
