@@ -22,6 +22,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         alertPresenter = AlertPresenter(viewController: self)
         
+        activityIndicator.hidesWhenStopped = true
         
         let ysMediumFont = UIFont(name: "YS Display Medium", size: 20.0)
         textLabel.font = ysMediumFont
@@ -39,7 +40,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - QuestionFactoryDelegate
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        activityIndicator.stopAnimating()
         questionFactory?.requestNextQuestion()
     }
     
@@ -135,13 +136,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private func showLoadingIndicator() {
-        activityIndicator.isHidden = false // говорим, что индикатор загрузки не скрыт
-        activityIndicator.startAnimating() // включаем анимацию
+        activityIndicator.startAnimating()
     }
     
     private func hideLoadingIndicator() {
         activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
     }
     
     private func showNetworkError(message: String) {
