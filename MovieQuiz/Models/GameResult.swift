@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct GameResult {
+struct GameResult: Codable {
     let correct: Int
     let total: Int
     let date: Date
