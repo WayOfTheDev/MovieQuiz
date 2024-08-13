@@ -5,9 +5,11 @@
 //  Created by D. K. on 02.07.24.
 //
 
+import Foundation
+
 struct AlertModel {
-    let title: String
-    let message: String
-    let buttonText: String
-    let completion: () -> Void
+    var title: String
+    var message: String
+    var buttonText: String
+    var completion: () -> Void
 }
