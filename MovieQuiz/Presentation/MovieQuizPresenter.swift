@@ -22,7 +22,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     init(statisticService: StatisticServiceProtocol, moviesLoader: MoviesLoader) {
         self.statisticService = statisticService
         self.questionFactory = QuestionFactory(moviesLoader: moviesLoader, delegate: nil)
-        (self.questionFactory as? QuestionFactory)?.delegate = self
+        self.questionFactory.delegate = self
     }
     
     func viewDidLoad() {
