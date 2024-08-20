@@ -15,14 +15,16 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = MovieQuizPresenter(statisticService: StatisticServiceImplementation())
+        let statisticService = StatisticServiceImplementation()
+        let moviesLoader = MoviesLoader()
+        presenter = MovieQuizPresenter(statisticService: statisticService, moviesLoader: moviesLoader)
         presenter.viewController = self
         
         alertPresenter = AlertPresenter(viewController: self)
         
         setupUI()
         
-        presenter.setupQuestionFactory(moviesLoader: MoviesLoader())
+        presenter.viewDidLoad()
     }
 
     private func setupUI() {

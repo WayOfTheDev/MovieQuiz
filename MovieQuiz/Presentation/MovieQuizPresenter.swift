@@ -16,17 +16,17 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     weak var viewController: MovieQuizViewControllerProtocol?
     private var currentQuestion: QuizQuestion?
     
-    private var questionFactory: QuestionFactoryProtocol?
-    
+    private let questionFactory: QuestionFactoryProtocol
     private let statisticService: StatisticServiceProtocol
 
-    init(statisticService: StatisticServiceProtocol) {
+    init(statisticService: StatisticServiceProtocol, moviesLoader: MoviesLoader) {
         self.statisticService = statisticService
+        self.questionFactory = QuestionFactory(moviesLoader: moviesLoader, delegate: nil)
+        (self.questionFactory as? QuestionFactory)?.delegate = self
     }
     
-    func setupQuestionFactory(moviesLoader: MoviesLoader) {
-        questionFactory = QuestionFactory(moviesLoader: moviesLoader, delegate: self)
-        questionFactory?.loadData()
+    func viewDidLoad() {
+        questionFactory.loadData()
         viewController?.showLoadingIndicator()
     }
     
@@ -37,7 +37,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     func restartGame() {
         currentQuestionIndex = 0
         correctAnswers = 0
-        questionFactory?.requestNextQuestion()
+        questionFactory.requestNextQuestion()
     }
     
     func didAnswer(isCorrectAnswer: Bool) {
@@ -68,7 +68,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             viewController?.showQuizResults(viewModel)
         } else {
             currentQuestionIndex += 1
-            questionFactory?.requestNextQuestion()
+            questionFactory.requestNextQuestion()
         }
     }
     
@@ -105,7 +105,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     func didLoadDataFromServer() {
         viewController?.hideLoadingIndicator()
-        questionFactory?.requestNextQuestion()
+        questionFactory.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {

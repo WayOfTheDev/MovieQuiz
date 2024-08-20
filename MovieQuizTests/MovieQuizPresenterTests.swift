@@ -25,20 +25,35 @@ final class MockStatisticService: StatisticServiceProtocol {
     func store(correct: Int, total: Int) {}
 }
 
+struct MockMoviesLoader: MoviesLoading {
+    func loadMovies(handler: @escaping (Result<MostPopularMovies, Error>) -> Void) {
+        // логика мока для теста
+    }
+}
+
+final class MockNetworkClient: NetworkRouting {
+    func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
+        // Реализация мока
+    }
+}
+
 final class MovieQuizPresenterTests: XCTestCase {
     func testPresenterConvertModel() throws {
+        // Given
         let viewControllerMock = MovieQuizViewControllerMock()
         let mockStatisticService = MockStatisticService()
-        let sut = MovieQuizPresenter(statisticService: mockStatisticService)
+        let mockNetworkClient = MockNetworkClient()
+        let mockMoviesLoader = MoviesLoader(networkClient: mockNetworkClient)
+        let sut = MovieQuizPresenter(statisticService: mockStatisticService, moviesLoader: mockMoviesLoader)
         sut.viewController = viewControllerMock
         
         let emptyData = Data()
         let question = QuizQuestion(image: emptyData, text: "Question Text", correctAnswer: true)
         
-        // Act
+        // When
         let viewModel = sut.convert(model: question)
         
-        // Assert
+        // Then
         XCTAssertNotNil(viewModel.image)
         XCTAssertEqual(viewModel.question, "Question Text")
         XCTAssertEqual(viewModel.questionNumber, "1/10")
